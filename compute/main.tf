@@ -1,6 +1,6 @@
-resource "google_compute_instance" "default" {
+resource "google_compute_instance" "jenkins-compute-instance" {
   tags = ["http-server","https-server","jenkins-task"]
-  name         = "test"
+  name         = "jenkins-task"
   machine_type = "e2-medium"
 
   boot_disk {
@@ -26,5 +26,5 @@ sudo systemctl status jenkins > jenkis_status.txt
 EOT
 }
 output "Web-server-URL" {
- value = join("",["http://",google_compute_instance.default.network_interface.0.access_config.0.nat_ip,":80"])
+ value = join("",["http://",google_compute_instance.jenkins-compute-instance.network_interface.0.access_config.0.nat_ip,":80"])
 }
